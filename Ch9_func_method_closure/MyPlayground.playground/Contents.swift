@@ -74,3 +74,22 @@ print(lengthTuple.centimeters)
 print(lengthTuple.meters)
 
 
+// 가변개수 매개변수 : 함수가 호출될 때 함수가 받게 될 매개변수가 몇 개인지 알 수 없는 경우
+func displayStrings(_ strings: String...) {
+    for string in strings {
+        print(string)
+    }
+}
+displayStrings("one", "two", "three", "four")
+
+
+// 변수인 매개변수 : 매개변수는 기본적으로 상수 취급. 따라서 함수내에서 매개변수 값을 변경하고 싶다면 매개변수의 shadow copy를 생성해야 한다.
+func calculateArea (length: Float, width: Float) -> Float {
+    var length = length
+    var width = width
+    
+    length = length * 2.54
+    width = width * 2.54
+    return length * width
+}
+print(calculateArea(length: 10, width: 20))
