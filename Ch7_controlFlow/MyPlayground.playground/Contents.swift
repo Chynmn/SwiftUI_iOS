@@ -103,3 +103,22 @@ if z == 10 {
     print("z is 11")
 }
 
+/* guard 구문 : 특정 조건을 만족하지 않은 경우에 현재의 함수 또는 반복문에서 빠져나올 수 있게 해준다.
+ guard <조건문(불리언 표현식)> else {-> 현재의 코드에서 빠져나가는 구문(return, break, continue, throw)을 포함해야함
+                                   or 자기자신을 반환하지 않는 다른 함구나 메서드를 호출 할 수 있다.
+    // 조건문이 false일 때 실행될 코드
+    <종료구문>
+ }
+    // 조건문이 true일 때 실행될 코드
+ */
+
+// 옵셔널 형태(Ch5참고)의 정숫값을 매개변수로 받는 함수
+func multiplyByTen(value: Int?) {
+    guard let number = value, number < 10 else {
+        print("Number is too high")
+        return
+    }
+    
+    let result = number * 10
+    print(result)
+}
