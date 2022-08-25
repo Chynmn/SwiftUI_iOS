@@ -41,7 +41,7 @@ repeat {
     i -= 1
 } while (i > 0)
 
-// 반복문에서 빠져나오기
+// 반복문에서 빠져나오기 break문
 var j = 10
 
 for _ in 0 ..< 100 {
@@ -51,5 +51,55 @@ for _ in 0 ..< 100 {
         break
     }
     print("j = \(j)")
+}
+
+// continue문
+var k = 1
+
+while k < 20 {
+    k += 1
+    if(k % 2) != 0 {
+        continue
+    }
+    print("k = \(k)")
+}
+
+/* flow control
+ if구문
+ if 조건식 {
+    // 조건식이 true일 때 수행될 스위프트 코드
+ }
+ */
+
+let x = 10
+
+if x > 9 {
+    print("x is greater than 9!")
+}
+
+/*
+ if 조건식 {
+    // 조건식이 true일 때 수행될 스위프트 코드
+} else {
+    // 조건식이 false일 때 수행될 스위프트 코드
+ }
+ */
+
+let y = 8
+
+if y > 9 {
+    print("y is greater than 9!")
+} else {
+    print("y is less than 9!")
+}
+
+let z = 11
+
+if z == 10 {
+    print("z is 10")
+} else if z == 9 {
+    print("z is 9")
+} else if z == 11 {
+    print("z is 11")
 }
 
