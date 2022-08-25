@@ -24,7 +24,7 @@ func buildMessageFor(name: String, count: Int) -> String {
 }
 
 var message = buildMessageFor(name: userName, count: cnt)
-print("\(message)")
+print(message)
 
 _ = buildMessageFor(name: "John", count: 100)   // 반환된 결과값을 사용하지 않고 버리는 경우
 
@@ -39,7 +39,7 @@ func buildMessageFor2(_ name: String, _ count: Int) -> String {
     return "\(name), you are customer number \(count)"
 }
  message = buildMessageFor2("Chynmn", 24)
-print("\(message)")
+print(message)
 
 
 // 함수 선언부에서 지역 매개변수명 앞에 외부 매개변수명을 선언하면 외부 매개변수명이 추가됨.
@@ -47,7 +47,30 @@ func buildMessageFor3(userName name: String, userCount count: Int) -> String {
     return "\(name), you are customer number \(count)"
 }
 message = buildMessageFor3(userName: "Mr.Cho", userCount: 32)
-print("\(message)")
+print(message)
 
 
-// 함수에 디폴트 매개변수 선언하기
+// 함수에 디폴트 매개변수 선언하기 -> 함수가 호출될 때 인자로 쓸 값이 들어오지 않은 경우에 사용. 함수 선언 시 디폴트 값을 할당
+func buildMessageFor4(_ name: String = "Customer", count: Int) -> String {
+    return "\(name), you are customer number \(count)"
+}
+message = buildMessageFor4(count: 18)
+print(message)
+message = buildMessageFor4("Jayson", count: 29)
+print(message)
+
+// 여러 결과값 반환하기 -> 결과값들을 튜플로 래핑하는 방식
+func sizeConverter (_ length: Float) -> (yards: Float, centimeters: Float, meters: Float) {
+    let yards = length * 0.0277778
+    let centimeters = length * 2.54
+    let meters = length * 0.0254
+    
+    return (yards, centimeters, meters)
+}
+
+let lengthTuple = sizeConverter(20)
+print(lengthTuple.yards)
+print(lengthTuple.centimeters)
+print(lengthTuple.meters)
+
+
