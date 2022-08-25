@@ -112,6 +112,7 @@ if z == 10 {
     // 조건문이 true일 때 실행될 코드
  */
 
+// 옵셔널 형태(Ch5참고)의 정숫값을 매개변수로 받는 함수
 func multiplyByTen(value: Int?) {
     guard let number = value, number < 10 else {
         print("Number is too high")
