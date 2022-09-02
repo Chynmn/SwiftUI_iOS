@@ -85,7 +85,7 @@ displayStrings("one", "two", "three", "four")
 
 // 변수인 매개변수 : 매개변수는 기본적으로 상수 취급. 따라서 함수내에서 매개변수 값을 변경하고 싶다면 매개변수의 shadow copy를 생성해야 한다.
 func calculateArea (length: Float, width: Float) -> Float {
-    var length = length
+    var length = length // shadow copy
     var width = width
     
     length = length * 2.54
@@ -93,3 +93,67 @@ func calculateArea (length: Float, width: Float) -> Float {
     return length * width
 }
 print(calculateArea(length: 10, width: 20))
+
+// 입출력 매개변수로 작업하기
+var myValue = 10
+
+func doubleValue(_ value: Int) -> Int {
+    var value = value
+    value += value
+    return value
+}
+
+print("Before function call myValue = \(myValue)")
+
+print("doubleValue call returns \(doubleValue(myValue))")
+
+print("After function call myValue = \(myValue)\n")
+
+// 위의 결과에서 함수가 값을 반환한 뒤에도 매개변수에 대한 변경을 유지하려면 함수 선언부 내에서 매개변수를 입출력 매개변수(in-out parameter)로 선언해야 한다.
+func doubleValue2(_ value: inout Int) -> Int {
+    // var value = value 삭제
+    value += value
+    return value
+}
+
+print("Before function call myValue = \(myValue)")
+print("doubleValue call returned \(doubleValue2(&myValue))")
+print("After function call myValue = \(myValue)\n") // myVlaue 변수에 값이 할당되도록 함수가 수정되었음
+
+// 매개변수인 함수 : 함수가 데이터 타입처럼 취급될 수 있음
+// 장점 : 상수, 변수에 할당된 함수는 여러 데이터 타입의 기능을 가질 수 있다는 점. 함수는 다른 함수의 인자로 전달될 수 있으며 함수의 반환값으로 반환될 수 있음
+// 함수의 데이터 타입 : 받게 될 매개변수의 데이터 타입과 반환됭 데이터 타입을 조합하여 결정됨.
+func inchesToFeet(_ inches: Float) -> Float {
+    
+    return inches * 0.0833333
+}
+
+func inchesToYards (_ inches: Float) -> Float {
+    
+    return inches * 0.0277778
+}
+let toFeet = inchesToFeet
+let toYards = inchesToYards
+
+let result = toFeet(10)
+
+func outputConversion(_ converterFunc: (Float) -> Float, value: Float) {
+    
+    let result = converterFunc(value)
+    
+    print("Result of conversion is \(result)")
+    // 함수가 호출될 때 미리 선언한 데이터 타입과 일치하는 함수가 전달되어야 한다.
+}
+
+outputConversion(toYards, value: 10)    // 야드로 변환하기
+outputConversion(toFeet, value: 10)     // 피트로 변환하기
+
+// 함수의 타입을 반환 타입으로 선언하면 함수도 데이터 타입으로 반환될 수 있음
+func decideFunction(_ feet: Bool) -> (Float) -> Float {
+    // 불리언 매개변수의 값에 따라 우리가 만든 toFeet 함수나 toYards 함수 타입을 반환하도록 구성
+    if feet {
+        return toFeet
+    } else {
+        return toYards
+    }
+}
