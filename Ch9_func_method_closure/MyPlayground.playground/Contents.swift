@@ -157,3 +157,55 @@ func decideFunction(_ feet: Bool) -> (Float) -> Float {
         return toYards
     }
 }
+
+// 클로저 표현식 closure expression : 독립적인 코드 블록
+let sayHello2 = { print("Hello") }
+sayHello2()
+/*
+ {(<매개변수 이름>: <매개변수 타입>, <매개변수 이름>: <매개변수 타입>, ... ) -> <반환 타입> in
+    클로저 표현식 코드
+ }
+ */
+let multiply = {(_ val1: Int, _ val2: Int) -> Int in
+    return val1 * val2
+}
+let result2 = multiply(10, 20)
+// 함수 선언과 비슷하지만 클로저 표현식은 이름을 갖지 않으며, 매개변수와 반환 타입은 괄호 안에 포함되고, 클로저 표현식 코드의 시작을 가리키기 위하여 in 키워드 사용
+// 따라서 함수 = 이름이 있는 클로서 표현식
+
+/*
+ 클로저 표현식은 비동기 메서드 호출에 대한 완료 핸들러를 선언할 때 주로 사용
+ iOS 앱을 개발할 때 어떤 작업을 백그라운드에서 작업하게 해서 애플리케이션이 다른 작업을 계속 할 수 있도록 운영체제에게 요청해야 하는 경우가 종종 생긴다.
+ 이 경우 보통 시스템이 application에게 작업이 완료된 것을 알리고 작업(메서드)을 호출할 때 선언했던 완료 핸들러를 호출하여 결과 반환한다.
+ 완료 핸들러에 대한 코드는 주로 클로저 표현식의 형태로 구현
+ eventstore. requestAccess(to: .reminder, completion: {(granted: Bool,
+                    error: Error?) -> Void in
+    if !granted {
+        print(error!.localizeDescription)
+    }
+ })
+ 
+ swift 컴파일러는 이 메서드 호출에 대한 완료 핸들러의 매개변수와 반환값에 대해 이미 알고 있기 때문에 클로저 표현식 내에서 선언되지 않은 정보를 유추할 수 있다.
+ 따라서 클로저 표현식의 선언부를 다음과 같이 간략하게 할 수 있다.
+ eventstore. requestAccess(to: .reminder, completion: {(granted, error) in
+    if !granted {
+        print(error!.localizeDescription)
+    }
+ })
+ */
+
+// 클로저 closure : 함수나 클로저 표현식과 같은 독립적인 코드 블록과 블록 주변에 있는 하나 이상의 변수가 결합된 것을 말함
+func functionA() -> () -> Int { // funtionA는 클로저를 반환하고 있다.
+    
+    let counter = 0
+    
+    func functionB() -> Int {
+        return counter + 10
+    }
+    return functionB
+}
+
+let myClosure = functionA()
+let result3 = myClosure()
+// functionB는 counter 변수를 잡고 있기 때문에 closure로 간주
+print("\(result3)")
