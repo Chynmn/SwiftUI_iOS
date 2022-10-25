@@ -26,6 +26,12 @@ var multiline = """
 
 print(multiline)
 
+// 변수 -> 값 변경 가능
+var variableNum = 2494812
+variableNum = -98
+
+// 상수 -> 값 변경 불가
+let constantNum = 20123
 /*:
 ## 타입 선언과 타입 추론
 * 상수나 변수의 타입을 지정하는 예시
@@ -92,7 +98,7 @@ if let firstPet = pet1, let secondPet = pet2 {
     print("insufficient pets")
 }
 
-// 강제 언래핑으로 옵셔널 선언
+// 강제적으로 언래핑되도록 옵셔널 선언
 var index2: Int!
 
 index2 = 0
