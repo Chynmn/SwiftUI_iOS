@@ -38,7 +38,7 @@ _ = buildMessageFor(name: "John", count: 100)   // 반환된 결과값을 사용
 func buildMessageFor2(_ name: String, _ count: Int) -> String {
     return "\(name), you are customer number \(count)"
 }
- message = buildMessageFor2("Chynmn", 24)
+message = buildMessageFor2("Chynmn", 24)
 print(message)
 
 
@@ -80,12 +80,13 @@ func displayStrings(_ strings: String...) {
         print(string)
     }
 }
+// 문자열 값들을 매개변수로 받아 출력
 displayStrings("one", "two", "three", "four")
 
 
 // 변수인 매개변수 : 매개변수는 기본적으로 상수 취급. 따라서 함수내에서 매개변수 값을 변경하고 싶다면 매개변수의 shadow copy를 생성해야 한다.
 func calculateArea (length: Float, width: Float) -> Float {
-    var length = length // shadow copy
+    var length = length // shadow copy -> 지역변수의 특성 때문인 것 같음.
     var width = width
     
     length = length * 2.54
@@ -102,27 +103,25 @@ func doubleValue(_ value: Int) -> Int {
     value += value
     return value
 }
-
+// 매개변수는 해당 함수 내에서 상수 취급하고, 매개변수의 값을 변경하고 싶을 때에는 shadow copy를 사용하기 때문에, 기본적으로 원본 변수에 반영되지 않는다.
 print("Before function call myValue = \(myValue)")
-
 print("doubleValue call returns \(doubleValue(myValue))")
-
 print("After function call myValue = \(myValue)\n")
 
 // 위의 결과에서 함수가 값을 반환한 뒤에도 매개변수에 대한 변경을 유지하려면 함수 선언부 내에서 매개변수를 입출력 매개변수(in-out parameter)로 선언해야 한다.
 func doubleValue2(_ value: inout Int) -> Int {
-    // var value = value 삭제
+    // var value = value -> shadow copy 삭제
     value += value
     return value
 }
 
 print("Before function call myValue = \(myValue)")
-print("doubleValue call returned \(doubleValue2(&myValue))")
+print("doubleValue call returned \(doubleValue2(&myValue))")    // 단, 함수를 호출 할 때 매개변수 앞에 &를 붙여야 한다.
 print("After function call myValue = \(myValue)\n") // myVlaue 변수에 값이 할당되도록 함수가 수정되었음
 
 // 매개변수인 함수 : 함수가 데이터 타입처럼 취급될 수 있음
 // 장점 : 상수, 변수에 할당된 함수는 여러 데이터 타입의 기능을 가질 수 있다는 점. 함수는 다른 함수의 인자로 전달될 수 있으며 함수의 반환값으로 반환될 수 있음
-// 함수의 데이터 타입 : 받게 될 매개변수의 데이터 타입과 반환됭 데이터 타입을 조합하여 결정됨.
+// 함수의 데이터 타입 : 받게 될 매개변수의 데이터 타입과 반환될 데이터 타입을 조합하여 결정됨.
 func inchesToFeet(_ inches: Float) -> Float {
     
     return inches * 0.0833333
@@ -137,6 +136,7 @@ let toYards = inchesToYards
 
 let result = toFeet(10)
 
+// 단위를 변환하고 결과를 출력하는 함수가 필요. 부동소수를 매개변수로 받고 부동소수 결과를 반환하기 위해 (Float) -> Float 를 사용
 func outputConversion(_ converterFunc: (Float) -> Float, value: Float) {
     
     let result = converterFunc(value)
@@ -145,8 +145,8 @@ func outputConversion(_ converterFunc: (Float) -> Float, value: Float) {
     // 함수가 호출될 때 미리 선언한 데이터 타입과 일치하는 함수가 전달되어야 한다.
 }
 
-outputConversion(toYards, value: 10)    // 야드로 변환하기
-outputConversion(toFeet, value: 10)     // 피트로 변환하기
+outputConversion(toFeet, value: 100)     // 피트로 변환하기
+outputConversion(toYards, value: 200)    // 야드로 변환하기
 
 // 함수의 타입을 반환 타입으로 선언하면 함수도 데이터 타입으로 반환될 수 있음
 func decideFunction(_ feet: Bool) -> (Float) -> Float {
